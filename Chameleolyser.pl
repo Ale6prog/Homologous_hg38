@@ -102,6 +102,7 @@ FilterRawVariants							($WORKING_DIR,
 ##################################################################################################
 ##################################################################################################
 
+
 sub PrepareBED {
 	
 	(my $WORKING_DIR,
@@ -157,9 +158,6 @@ sub PrepareBED {
 	}
 	
 	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/RegionID_ToStrand.txt");
-	
-	
-	
 }
 
 sub MaskReferenceGenome {
@@ -192,17 +190,28 @@ sub MaskReferenceGenome {
 	chdir	("$WORKING_DIR/REF/");
 	
 	if ($PREFIX eq "chr"){
-		
-		system	("wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/all_assembly_versions/GCF_000001405.25_GRCh37.p13/GRCh37_seqs_for_alignment_pipelines/GCA_000001405.14_GRCh37.p13_full_analysis_set.fna.gz");
-		system 	("gunzip GCA_000001405.14_GRCh37.p13_full_analysis_set.fna.gz");
-		system	("mv GCA_000001405.14_GRCh37.p13_full_analysis_set.fna hg19.chr.fa");
+		# download data
+		#system	("wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/all_assembly_versions/GCF_000001405.25_GRCh37.p13/GRCh37_seqs_for_alignment_pipelines/GCA_000001405.14_GRCh37.p13_full_analysis_set.fna.gz");
+		# decompress data
+		#system 	("gunzip GCA_000001405.14_GRCh37.p13_full_analysis_set.fna.gz");
+		# Change name of the file
+		#system	("mv GCA_000001405.14_GRCh37.p13_full_analysis_set.fna hg19.chr.fa");
+		# Index the genome > burrows wheeler compressed index
 		system 	("bwa index hg19.chr.fa");
+		#  Index the region of the genome as an .fai
+		# contains lenght ,position in the file; nmes length of the fasta files
 		system 	("samtools faidx hg19.chr.fa");
+		# Recuperate the position and the lenght in the file
 		system	("awk -v OFS='\t' {'print \$1,\$2'} hg19.chr.fa.fai > hg19.chr.txt");
+		# Create dictionnary with the sequencé of the genome 
 		system	("java -Xmx8G -jar $PicardJarPath CreateSequenceDictionary REFERENCE=hg19.chr.fa OUTPUT=hg19.chr.dict");
+		# masks sequences in genome based on intervals defined in a feature file (bed)
 		system 	("bedtools maskfasta -fi hg19.chr.fa -bed ../BED/All.formasking.noalt.chr.bed -fo hg19.masked.chr.fa");
+		# Index the masked genome
 		system 	("bwa index hg19.masked.chr.fa");
+		# Index the region of the masked genome as a fai file
 		system 	("samtools faidx hg19.masked.chr.fa");	
+		# Create dictionnary with the sequence of the genome 
 		system	("java -Xmx8G -jar $PicardJarPath CreateSequenceDictionary REFERENCE=hg19.masked.chr.fa OUTPUT=hg19.masked.chr.dict");
 	}
 	else {
@@ -224,7 +233,8 @@ sub MaskReferenceGenome {
 }
 
 sub GenerateMaskedAlignmentAndVcf {
-	
+
+	# recuperate the variable
 	(my $WORKING_DIR,
 	 my $PREFIX,
 	 my $SAMPLE_NAME,
@@ -237,7 +247,8 @@ sub GenerateMaskedAlignmentAndVcf {
 		$PicardJarPath =~ s/\n//g;
 		$PicardJarPath =~ s/bin\/.*$/bin\//g;
 		$PicardJarPath .= "../share/picard-2.20.8-0/picard.jar";
-	
+
+	# create the variable
 	my 	$ExtractionBedFP		= "";
 	my 	$VarCallBedFP			= "";
 	my 	$CovExonsFP				= "";
@@ -245,8 +256,15 @@ sub GenerateMaskedAlignmentAndVcf {
 	my 	$MaskedRefGenome		= "";
 	my 	$GenomeFileFilePath 	= "";
 	
+	# test if working directory, refseq and BEDs exists
+	if (! -d $WORKING_DIR){
+		print "$WORKING_DIR should already exist.\n";
+		print "Please enter an existing working directory.\n";
+		die("$!\n");
+	}
+
+	# Recuperate the path of all files
 	if ($PREFIX eq "chr"){
-		
 		$ExtractionBedFP		= "$WORKING_DIR/BED/All.forextraction.noalt.chr.bed";
 		$VarCallBedFP			= "$WORKING_DIR/BED/All.forvarcall.noalt.chr.bed";
 		$CovExonsFP				= "$WORKING_DIR/BED/All.homologousexons.noalt.chr.bed";
@@ -255,23 +273,20 @@ sub GenerateMaskedAlignmentAndVcf {
 		$GenomeFileFilePath		= "$WORKING_DIR/REF/hg19.chr.txt";
 	}
 	else {
-		
+		# position ?
 		$ExtractionBedFP		= "$WORKING_DIR/BED/All.forextraction.noalt.bed";
+		# position ?
 		$VarCallBedFP			= "$WORKING_DIR/BED/All.forvarcall.noalt.bed";
+		# position ?
 		$CovExonsFP				= "$WORKING_DIR/BED/All.homologousexons.noalt.bed";
+		# genome
 		$RefGenome				= "$WORKING_DIR/REF/hg19.fa";
+		# masked genome
 		$MaskedRefGenome		= "$WORKING_DIR/REF/hg19.masked.fa";
+		# position seq and lenght in genome
 		$GenomeFileFilePath		= "$WORKING_DIR/REF/hg19.txt";
 	}
-	
-	# test if working directory, refseq and BEDs exists
-	
-	if (! -d $WORKING_DIR){
-		print "$WORKING_DIR should already exist.\n";
-		print "Please enter an existing working directory.\n";
-		die("$!\n");
-	}
-	
+	# if one files is missing
 	if ( ! -f $ExtractionBedFP  	||
 		 ! -f $VarCallBedFP  		||
 		 ! -f $CovExonsFP  			||
@@ -283,91 +298,125 @@ sub GenerateMaskedAlignmentAndVcf {
 		print "Please first run PrepareBED and MaskReferenceGenome\n";
 		die("$!\n");	
 	}
-
+	#system("java -Xmx8G -jar $PicardJarPath SamToFastq I=$ALIGNMENT_FP FASTQ=$WORKING_DIR/data/read_1.fq SECOND_END_FASTQ=$WORKING_DIR/data/read_2.fq");
+	#system("bwa mem $RefGenome   $WORKING_DIR/data/read_1.fq $WORKING_DIR/data/read_2.fq | samtools sort  -o align.bam");
+	#die;
 	# Generate masked alignment
-	
-	unless (-d "$WORKING_DIR/RAW/$SAMPLE_NAME/"){system("mkdir $WORKING_DIR/RAW/$SAMPLE_NAME/");};
-	
-	chdir	("$WORKING_DIR/RAW/$SAMPLE_NAME/");
-	
-	system	("samtools view -b -L $ExtractionBedFP -o $SAMPLE_NAME.ori.bam $ALIGNMENT_FP");
-	system	("java -Xmx8G -jar $PicardJarPath SortSam I=$SAMPLE_NAME.ori.bam O=$SAMPLE_NAME.ori.sorted.bam SO=coordinate");
-	system	("java -Xmx8G -jar $PicardJarPath MarkDuplicates I=$SAMPLE_NAME.ori.sorted.bam O=$SAMPLE_NAME.ori.sorted.remdup.bam M=$SAMPLE_NAME.ori.sorted.remdup.met REMOVE_DUPLICATES=true");
-	
-	system	("rm -f $SAMPLE_NAME.ori.sorted.bam");
-	system	("samtools index $SAMPLE_NAME.ori.sorted.remdup.bam");
-	system	("samtools view -bh -q 1 $SAMPLE_NAME.ori.sorted.remdup.bam > $SAMPLE_NAME.ori.sorted.remdup.uniq.bam");
-	
-	system	("bedtools coverage -a $CovExonsFP -b $SAMPLE_NAME.ori.sorted.remdup.bam -counts | bgzip -c > $SAMPLE_NAME.ori.sorted.remdup.cov.gz");
-	system	("bedtools coverage -a $CovExonsFP -b $SAMPLE_NAME.ori.sorted.remdup.uniq.bam -counts | bgzip -c > $SAMPLE_NAME.ori.sorted.remdup.uniq.cov.gz");	
-	system	("lofreq call --call-indels --force-overwrite --no-default-filter --use-orphan -a 1 -b 20 -B -N -f $RefGenome -l $VarCallBedFP -o $SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf $SAMPLE_NAME.ori.sorted.remdup.bam");
-		
-	system	("bgzip -c $SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf > $SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf.gz");
-	system	("tabix -p vcf $SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf.gz");
-	system	("rm -f $SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf");
-	system	("gatk --java-options \-Xmx4g\ HaplotypeCaller -R $RefGenome -I $SAMPLE_NAME.ori.sorted.remdup.bam -O $SAMPLE_NAME.ori.sorted.remdup.gatk.vcf -L $VarCallBedFP --annotation MappingQualityRankSumTest --annotation MappingQualityZero --annotation QualByDepth --annotation ReadPosRankSumTest --annotation RMSMappingQuality --annotation BaseQualityRankSumTest --annotation FisherStrand --annotation MappingQuality --annotation DepthPerAlleleBySample");
-	
-	system	("bgzip -c $SAMPLE_NAME\.ori.sorted.remdup.gatk.vcf > $SAMPLE_NAME.ori.sorted.remdup.gatk.vcf.gz");
-	system	("tabix -p vcf $SAMPLE_NAME\.ori.sorted.remdup.gatk.vcf.gz");
-	system	("rm -f $SAMPLE_NAME\.ori.sorted.remdup.gatk.vcf");
-	system	("rm -f $SAMPLE_NAME\.ori.sorted.remdup.gatk.vcf.idx");
-	system	("bedtools coverage -a $VarCallBedFP -b $SAMPLE_NAME.ori.sorted.remdup.bam -d -sorted  -g $GenomeFileFilePath > $SAMPLE_NAME.ori.sorted.remdup.cov");
-	system	("bgzip -c $SAMPLE_NAME.ori.sorted.remdup.cov > $SAMPLE_NAME.ori.sorted.remdup.cov.gz");
-	system	("tabix -p bed $SAMPLE_NAME.ori.sorted.remdup.cov.gz");
-	system	("rm -f $SAMPLE_NAME.ori.sorted.remdup.cov");
-	
-	system	("samtools collate -uO $SAMPLE_NAME.ori.sorted.remdup.bam $SAMPLE_NAME | samtools fastq -1 $SAMPLE_NAME.1.fastq -2 $SAMPLE_NAME.2.fastq -0 $SAMPLE_NAME.0.fastq -t -");
-	system	("gzip $SAMPLE_NAME.1.fastq");
-	system	("gzip $SAMPLE_NAME.2.fastq");
-	
-	system	("repair.sh -in1=$SAMPLE_NAME.1.fastq.gz in2=$SAMPLE_NAME.2.fastq.gz out1=$SAMPLE_NAME.rep.1.fastq.gz out2=$SAMPLE_NAME.rep.2.fastq.gz outsingle=$SAMPLE_NAME.rep.0.fastq.gz usejni=t");
-	system	("rm -f $SAMPLE_NAME.1.fastq.gz");
-	system	("rm -f $SAMPLE_NAME.2.fastq.gz");
-	system	("rm -f $SAMPLE_NAME.0.fastq");
-	
-	system	("bwa mem -t $NR_OF_THREADS -M $MaskedRefGenome $SAMPLE_NAME.rep.1.fastq.gz $SAMPLE_NAME.rep.2.fastq.gz > $SAMPLE_NAME.masked.sam");
-	system	("samtools view -Sb $SAMPLE_NAME.masked.sam > $SAMPLE_NAME.masked.bam");
-	system	("java -Xmx8G -jar $PicardJarPath SortSam I=$SAMPLE_NAME.masked.bam O=$SAMPLE_NAME.masked.sorted.bam SO=coordinate");
-	
-	system	("rm -f $SAMPLE_NAME.rep.0.fastq.gz");
-	system	("rm -f $SAMPLE_NAME.rep.1.fastq.gz");
-	system	("rm -f $SAMPLE_NAME.rep.2.fastq.gz");
-	
-	system	("rm -f $SAMPLE_NAME.masked.sam");
-	system	("rm -f $SAMPLE_NAME.masked.bam");
-		
-	system	("java -Xmx8G -jar $PicardJarPath MarkDuplicates I=$SAMPLE_NAME.masked.sorted.bam O=$SAMPLE_NAME.masked.sorted.remdup.bam M=$SAMPLE_NAME.masked.sorted.remdup.met REMOVE_DUPLICATES=true");
-	
-	system	("rm -f $SAMPLE_NAME.masked.sorted.bam");
-	
-	system	("lofreq  indelqual --dindel -f $MaskedRefGenome -o $SAMPLE_NAME.masked.sorted.remdup.bqsr.bam $SAMPLE_NAME.masked.sorted.remdup.bam");
-	
-	
-	
-	system	("rm -f $SAMPLE_NAME.masked.sorted.remdup.bam");
-	system	("samtools index $SAMPLE_NAME.masked.sorted.remdup.bqsr.bam");
-	system	("java -Xmx8G -jar $PicardJarPath AddOrReplaceReadGroups I=$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam O=$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam RGID=1 RGLB=lib1 RGPL=illumina RGPU=unit1 RGSM=$SAMPLE_NAME");			
+	#system("java  -Xmx8G -jar $PicardJarPath ReplaceSamHeader I= $ALIGNMENT_FP HEADER=$WORKING_DIR/REF/hg19.chr.dict O=$WORKING_DIR/data/al.bam");
+	#$ALIGNMENT_FP = "$WORKING_DIR/data/al.bam";
+	#system("samtools index $ALIGNMENT_FP");
+	### First part create vcf files
 
-	system	("rm -f $SAMPLE_NAME.masked.sorted.remdup.bqsr.bam");
-	system	("rm -f $SAMPLE_NAME.masked.sorted.remdup.bqsr.bam.bai");
-	system	("samtools index $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam");
+	# alignement to bam (taking the reads and genome) positin? name reads
+	system	("samtools view -b -L $ExtractionBedFP -o $WORKING_DIR/RAW/$SAMPLE_NAME.ori.bam $ALIGNMENT_FP");
+	# classified with the coordinated
+	system	("java -Xmx8G -jar $PicardJarPath SortSam I=$WORKING_DIR/RAW/$SAMPLE_NAME.ori.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.bam SO=coordinate");
+	# tagg the duplicated from the files
+	system	("java -Xmx8G -jar $PicardJarPath MarkDuplicates I=$WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam M=$WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.met REMOVE_DUPLICATES=true");
+	# remove the sorted bam file
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.bam");
+	# bam to bai
+	system	("samtools index $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam");
+	# eliminate the reads to have uniq reads
+	system	("samtools view -bh -q 1 $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam > $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.uniq.bam");
+	system("echo second");
+	# compare the exons homologous with the reads and counts -> put in a zip
+	system	("bedtools coverage -a $CovExonsFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam -counts | bgzip -c >  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
+	# compare the exons homologous  with the uniq reads and counts -> put in a zip
+	system	("bedtools coverage -a $CovExonsFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.uniq.bam -counts | bgzip -c >  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.uniq.cov.gz");
+	# Infer the SNV and indel from reads (here)
+	system("echo third");
+	system	("lofreq call --call-indels --force-overwrite --no-default-filter --use-orphan -a 1 -b 20 -B -N -f $RefGenome -l $VarCallBedFP -o  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam");
+
+	system("echo third");
+	# zip the inference 
+	system	("bgzip -c  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf >  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf.gz");
+	# Index and retirve overlapping specified regions
+	system	("tabix -p vcf  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf.gz");
+	# remove the inference file
+	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf");
+	# deteckt the oitential variant sites per samples
+	system("java -jar $PicardJarPath AddOrReplaceReadGroups I=$WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME.ori.asorted.remdup.bam RGLB=lib1 RGPL=illumina RGPU=unit1 RGSM=hello");
+	system("samtools index $WORKING_DIR/RAW/$SAMPLE_NAME.ori.asorted.remdup.bam");
+	system	("gatk --java-options \-Xmx4g\ HaplotypeCaller -R $RefGenome -I  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.asorted.remdup.bam -O  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.gatk.vcf -L $VarCallBedFP --annotation MappingQualityRankSumTest --annotation MappingQualityZero --annotation QualByDepth --annotation ReadPosRankSumTest --annotation RMSMappingQuality --annotation BaseQualityRankSumTest --annotation FisherStrand --annotation MappingQuality --annotation DepthPerAlleleBySample");
+	system("echo yes");
+
+	### Clean the files 
+	# zip the results
+	system	("bgzip -c  $WORKING_DIR/RAW/$SAMPLE_NAME\.ori.sorted.remdup.gatk.vcf >  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.gatk.vcf.gz");
+	# Index and retirve overlapping specified regions
+	system	("tabix -p vcf  $WORKING_DIR/RAW/$SAMPLE_NAME\.ori.sorted.remdup.gatk.vcf.gz");
+	# removes files
+	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME\.ori.sorted.remdup.gatk.vcf");
+	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME\.ori.sorted.remdup.gatk.vcf.idx");
+
+	###Second part
+	system("echo fourth");
+	# compare the VarCallBedFP with the uniq reads and counts -> put in a zip
+	system	("bedtools coverage -a $VarCallBedFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam -d -sorted  -g $GenomeFileFilePath >  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.cov");
+	system	("bgzip -c  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.cov >  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
+	system	("tabix -p bed  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
+	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.cov");
 	
-	system	("lofreq call --call-indels --force-overwrite --no-default-filter --use-orphan -a 1 -b 20 -B -N -f $MaskedRefGenome -l $VarCallBedFP -o $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam");
-	system	("bgzip -c $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf > $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf.gz");
-	system	("tabix -p vcf $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf.gz");
-	system	("rm -f $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf");
-				
-	system	("gatk --java-options \-Xmx4g\ HaplotypeCaller -R $MaskedRefGenome -I $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam -O $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf -L $VarCallBedFP --annotation MappingQualityRankSumTest --annotation MappingQualityZero --annotation QualByDepth --annotation ReadPosRankSumTest --annotation RMSMappingQuality --annotation BaseQualityRankSumTest --annotation FisherStrand --annotation MappingQuality --annotation DepthPerAlleleBySample");
+	# goups read together by names and the way of reads
+	system	("samtools collate -uO  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam  $WORKING_DIR/RAW/$SAMPLE_NAME | samtools fastq -1  $WORKING_DIR/RAW/$SAMPLE_NAME.1.fastq -2  $WORKING_DIR/RAW/$SAMPLE_NAME.2.fastq -0  $WORKING_DIR/RAW/$SAMPLE_NAME.0.fastq -t -");
+	system	("gzip  $WORKING_DIR/RAW/$SAMPLE_NAME.1.fastq");
+	system	("gzip  $WORKING_DIR/RAW/$SAMPLE_NAME.2.fastq");
+	# Re-pairs reads that became disordered or had some mates eliminated.
+	system	("repair.sh -in1=$WORKING_DIR/RAW/$SAMPLE_NAME.1.fastq.gz in2=$WORKING_DIR/RAW/$SAMPLE_NAME.2.fastq.gz out1=$WORKING_DIR/RAW/$SAMPLE_NAME.rep.1.fastq.gz out2=$WORKING_DIR/RAW/$SAMPLE_NAME.rep.2.fastq.gz outsingle=$WORKING_DIR/RAW/$SAMPLE_NAME.rep.0.fastq.gz usejni=t");
+	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME.1.fastq.gz");
+	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME.2.fastq.gz");
+	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME.0.fastq");
+
+	system("echo fifth");
+	# Local aligment 	
+	system	("bwa mem -t $NR_OF_THREADS -M $MaskedRefGenome  $WORKING_DIR/RAW/$SAMPLE_NAME.rep.1.fastq.gz  $WORKING_DIR/RAW/$SAMPLE_NAME.rep.2.fastq.gz >  $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sam");
+	# S for compatibilty not needed b -> bam format
+	system	("samtools view -Sb  $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sam >  $WORKING_DIR/RAW/$SAMPLE_NAME.masked.bam");
+	# Class with coordinate
+	system	("java -Xmx8G -jar $PicardJarPath SortSam I= $WORKING_DIR/RAW/$SAMPLE_NAME.masked.bam O= $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.bam SO=coordinate");
 	
-	system	("bgzip -c $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf > $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf.gz");
-	system	("tabix -p vcf $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf.gz");
-	system	("rm -f $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf");
-	system	("rm -f $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf.idx");	
-	system	("bedtools coverage -a $VarCallBedFP -b $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam -d -sorted  -g $GenomeFileFilePath > $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.rep.0.fastq.gz");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.rep.1.fastq.gz");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.rep.2.fastq.gz");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sam");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.bam");
+
+	# Erase duplicate from file 
+	system	("java -Xmx8G -jar $PicardJarPath MarkDuplicates I=$WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bam M=$WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.met REMOVE_DUPLICATES=true");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.bam");
+	# add indel quality 
+	system	("lofreq  indelqual --dindel -f $MaskedRefGenome -o $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bam");
 	
-	system	("bgzip -c $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov > $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov.gz");
-	system	("tabix -p bed $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov.gz");
-	system	("rm -f $SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bam");
+
+	# index 
+	system	("samtools index $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam");
+	# Assigns all the reads in a file to a single new read-group
+	system	("java -Xmx8G -jar $PicardJarPath AddOrReplaceReadGroups I=$WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam RGID=1 RGLB=lib1 RGPL=illumina RGPU=unit1 RGSM=$SAMPLE_NAME");			
+	system("echo sixth");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam.bai");
+	# index 
+	system	("samtools index $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam");
+	### third part
+	# Infer the SNV and indel from reads (here)
+	system	("lofreq call --call-indels --force-overwrite --no-default-filter --use-orphan -a 1 -b 20 -B -N -f $MaskedRefGenome -l $VarCallBedFP -o $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam");
+	system	("bgzip -c $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf > $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf.gz");
+	system	("tabix -p vcf $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf.gz");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf");
+	#  In other words, whenever the program encounters a region showing signs of variation, it discards the existing mapping information and completely reassembles the reads in that region. 
+	system	("gatk --java-options \-Xmx4g\ HaplotypeCaller -R $MaskedRefGenome -I $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam -O $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf -L $VarCallBedFP --annotation MappingQualityRankSumTest --annotation MappingQualityZero --annotation QualByDepth --annotation ReadPosRankSumTest --annotation RMSMappingQuality --annotation BaseQualityRankSumTest --annotation FisherStrand --annotation MappingQuality --annotation DepthPerAlleleBySample");
+	
+	system	("bgzip -c $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf > $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf.gz");
+	system	("tabix -p vcf $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf.gz");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.gatk.vcf.idx");	
+	system	("bedtools coverage -a $VarCallBedFP -b $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam -d -sorted  -g $GenomeFileFilePath > $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov");
+	
+	system	("bgzip -c $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov > $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov.gz");
+	system	("tabix -p bed $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov.gz");
+	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov");
 }
 
 sub FilterRawVariants {
@@ -385,19 +434,19 @@ sub FilterRawVariants {
 	my $TroubleSitesFP					= "";
 	my $CohortAF_FP						= "";
 	
-	my $RegionToStrandsFP				= "$WORKING_DIR\/BED/RegionID_ToStrand.txt";		
-	my $VariantsOutFP					= $WORKING_DIR . "RAW/$SAMPLE_NAME/$SAMPLE_NAME.RawSNVs.txt";
-	my $VariantsFilter1OutFP			= $WORKING_DIR . "RAW/$SAMPLE_NAME/$SAMPLE_NAME.Filter1SNVs.txt";
-	my $VariantsFilter2OutFP			= $WORKING_DIR . "RAW/$SAMPLE_NAME/$SAMPLE_NAME.Filter2SNVs.txt";
-	my $VariantsFilter1BedFP			= $WORKING_DIR . "RAW/$SAMPLE_NAME/$SAMPLE_NAME.Filter1SNVs.bed";
-	my $SortedVariantsFilter1BedFP		= $WORKING_DIR . "RAW/$SAMPLE_NAME/$SAMPLE_NAME.Filter1SNVs.sorted.bed";
-	my $VariantsFilter1HpAnnoBedFP		= $WORKING_DIR . "RAW/$SAMPLE_NAME/$SAMPLE_NAME.Filter1SNVs.HpAnno.bed";
+	my $RegionToStrandsFP				= "$WORKING_DIR/BED/RegionID_ToStrand.txt";		
+	my $VariantsOutFP					= "$WORKING_DIR/RAW/$SAMPLE_NAME.RawSNVs.txt";
+	my $VariantsFilter1OutFP			= "$WORKING_DIR/RAW/$SAMPLE_NAME.Filter1SNVs.txt";
+	my $VariantsFilter2OutFP			= "$WORKING_DIR/RAW/$SAMPLE_NAME.Filter2SNVs.txt";
+	my $VariantsFilter1BedFP			= "$WORKING_DIR/RAW/$SAMPLE_NAME.Filter1SNVs.bed";
+	my $SortedVariantsFilter1BedFP		= "$WORKING_DIR/RAW/$SAMPLE_NAME.Filter1SNVs.sorted.bed";
+	my $VariantsFilter1HpAnnoBedFP		= "$WORKING_DIR/RAW/$SAMPLE_NAME.Filter1SNVs.HpAnno.bed";
 	my $FileHandle						= new IO::Zlib;
 	my %SDsBED 							= ();
 	my %SDsVAR 							= ();
 	my @VCFs							= ( "$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf.gz",
 											"$SAMPLE_NAME.ori.sorted.remdup.gatk.vcf.gz");
-	my $CovFilePath						= $WORKING_DIR . "RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov.gz";
+	my $CovFilePath						= "$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.cov.gz";
 	my %LoFreq_Variants					= ();
 	my %GATK_Variants					= ();
 	my %PosOfInterest					= ();
@@ -414,13 +463,13 @@ sub FilterRawVariants {
 	if ($PREFIX eq "chr"){
 		
 		$SDsBedFP						= "$WORKING_DIR/BED/AllSDs.noalt.chr.bed";
-		$AllToMapOnToOtherFP			= "$WORKING_DIR\/BED/AllToMapOnToOther.chr.txt.gz";	
-		$MappedSDsFP					= "$WORKING_DIR\/BED/MappedSDs.chr.txt";
-		$PositionToRegionFP				= "$WORKING_DIR\/BED/PosToRegionID.chr.txt.gz";
+		$AllToMapOnToOtherFP			= "$WORKING_DIR/BED/AllToMapOnToOther.chr.txt.gz";	
+		$MappedSDsFP					= "$WORKING_DIR/BED/MappedSDs.chr.txt";
+		$PositionToRegionFP				= "$WORKING_DIR/BED/PosToRegionID.chr.txt.gz";
 		
-		$HPsBedFP						= "$WORKING_DIR\/BED/HPs.noalt.chr.bed";
-		$TroubleSitesFP					= "$WORKING_DIR\/BED/SitesToExclude.noalt.chr.bed";
-		$CohortAF_FP					= "$WORKING_DIR\/BED/CohortAlleleFreq.chr.txt";
+		$HPsBedFP						= "$WORKING_DIR/BED/HPs.noalt.chr.bed";
+		$TroubleSitesFP					= "$WORKING_DIR/BED/SitesToExclude.noalt.chr.bed";
+		$CohortAF_FP					= "$WORKING_DIR/BED/CohortAlleleFreq.chr.txt";
 	}
 	else {
 		
@@ -437,17 +486,22 @@ sub FilterRawVariants {
 	# Read in SDs #
 	
 	print "Read in SDs\n";
-	
+	# Prepare
 	open SD, "$SDsBedFP" or die ("Can't open $SDsBedFP\n");
 	while(<SD>){
-		
+		# Erase the newline
 		$_ =~ s/\n//g;
+		# Erase the cariage
 		$_ =~ s/\r//g;
 			
 		(my $Chrom, undef, undef, my $SD) = split (m/\t/, $_);
+		# chr1~879153~879153~C/T
 		(undef, my $VarStart, undef, undef) = split(m/~/, $SD);
+
 		$SDsBED{$Chrom}{$VarStart}{$SD} = undef;
 		$SDsVAR{$SD} = undef;		
+		# chrom posstart SD = undef
+		# SD = undef
 	}
 	close SD;
 	
@@ -458,14 +512,15 @@ sub FilterRawVariants {
 	$FileHandle	= new IO::Zlib;
 	
 	if ($FileHandle->open($AllToMapOnToOtherFP, "rb")){
-			
+		# chr10~102034807	chrX~63946242
 		while (<$FileHandle>){
-								
+			# Erase the newline
 			$_ =~ s/\n//g;
-		
+			# chr10~102034807	chrX~63946242	
 			(my $ToMapOnCoord, my $OtherCoord) = split(m/\t/, $_);
 		
 			$CoordinateMappings{$ToMapOnCoord}{$OtherCoord} = undef;	
+			# CoordinateMappings start end = undef
 		}
 	}
 	
@@ -477,10 +532,11 @@ sub FilterRawVariants {
 	while (<M>){
 	
 		$_ =~ s/\n//g;
-		
+		#chr10~102034829~102034829~C/-	chrX~63946264~63946263~-/C
 		(my $ToMapOnSD, my $OtherSD) = split (m/\t/, $_);
 		
 		$MappedSDs{$ToMapOnSD}{$OtherSD} = undef;
+		#chr10~102034829~102034829~C/-	chrX~63946264~63946263~-/C = undef
 	}
 	close M;
 	
@@ -489,17 +545,19 @@ sub FilterRawVariants {
 	print "Read in position to region ID\n";
 	
 	$FileHandle	= new IO::Zlib;
-	
+
 	if ($FileHandle->open($PositionToRegionFP, "rb")){
 			
 		while (<$FileHandle>){
 								
 			$_ =~ s/\n//g;
-		
+			#chr1~877479	SAMD11
 			(my $Coord, my $RegionName) = split(m/\t/, $_);
+			#chr1            877479	
 			(my $Chrom, my $Position) = split(m/~/, $Coord);
 		
 			$PosToRegionName{$Chrom}{$Position} = $RegionName;	
+			# chr1 877479 = SAMD11
 		}
 	}
 	
@@ -511,17 +569,18 @@ sub FilterRawVariants {
 	while(<S>){
 		
 		$_ =~ s/\n//g;
-		
+		# PRDX2P2	+
 		(my $RegionID, my $Strand) = split(m/\t/, $_);
 		
 		$Strands{$RegionID} = $Strand;
+		# PRDX2P2 =	+
 	}
 	close S;
 	
 	# Tabulate variants #
 	
 	print "Tabulate variants\n";
-	
+	# Open raw SNV
 	open O, ">$VariantsOutFP" or die ("Can't open $VariantsOutFP\n");
 	foreach my $VCF (@VCFs){
 		
@@ -531,7 +590,7 @@ sub FilterRawVariants {
 		my 	$VARIANT_CALLER_SELECT			= "";
 			$FileHandle						= new IO::Zlib;
 		
-		my $VCF_FilePath 					= $WORKING_DIR . "RAW/" . $VCF;
+		my $VCF_FilePath 					= "$WORKING_DIR/RAW/$VCF";
 		
 		if 		($VCF =~ m/\.gatk\./)	{$Caller = "gatk";}
 		else 							{$Caller = "lofreq";}
@@ -550,7 +609,7 @@ sub FilterRawVariants {
 									
 				my 	$Line 	= $_;
 					$Line 	=~ s/\n//g;
-
+				# here a function to create the table of variabt chr1~879153~879153~C/T 
 				(my $VariantsRef, my $AFsRef, my $Depth, my $Qual) = DetermineVariantInVCF_Line ($Line, $VARIANT_CALLER_SELECT);
 				
 				for (my $I = 0; $I < scalar @$VariantsRef; $I++){
@@ -565,7 +624,7 @@ sub FilterRawVariants {
 					my 	$Max			= max($ChromStart, $ChromEnd);
 					my 	$BedStart 		= $Min-1;
 					my 	$VariantClass	= "nonSD";
-					
+					# look if variant exist in SD
 					if 		(exists $SDsVAR{$Variant}){$VariantClass = "SD";}
 					
 					next if ($AF eq "/");
@@ -590,10 +649,10 @@ sub FilterRawVariants {
 	}
 	close O;
 	
-	# Positions of interest #
+	# Positions of interest obtain in tabulate variants#
 	
 	print "Positions of interest\n";
-	
+	# from file lofreq
 	foreach my $Chrom (keys %LoFreq_Variants){
 		foreach my $Start (keys %{$LoFreq_Variants{$Chrom}}){
 			foreach my $Variant (keys %{$LoFreq_Variants{$Chrom}{$Start}}){
@@ -602,7 +661,7 @@ sub FilterRawVariants {
 			}
 		}
 	}
-	
+	# from file gatk
 	foreach my $Chrom (keys %GATK_Variants){
 		foreach my $Start (keys %{$GATK_Variants{$Chrom}}){
 			foreach my $Variant (keys %{$GATK_Variants{$Chrom}{$Start}}){
@@ -611,7 +670,7 @@ sub FilterRawVariants {
 			}
 		}
 	}
-		
+	# from file SG
 	foreach my $Chrom (keys %SDsBED){
 		foreach my $Start (keys %{$SDsBED{$Chrom}}){
 			foreach my $Variant (keys %{$SDsBED{$Chrom}{$Start}}){
@@ -637,9 +696,9 @@ sub FilterRawVariants {
 			(my $Chrom, my $Start, my $End, my $PosInInt, my $Cov) = split (m/\t/, $Line);
 			
 			my $CovPos = $Start + $PosInInt;
-				
+			# if not in interresting regions
 			next if (!exists $CoordinateMappings{"$Chrom\~$CovPos"});
-			
+			# quality enough
 			if ($Cov >= 60){
 
 				$Coverage{$Chrom}{$CovPos} = $Cov; 
@@ -648,7 +707,7 @@ sub FilterRawVariants {
 						exists $LoFreq_Variants{$Chrom}{$CovPos}){
 							
 					foreach my $Variant (keys %{$LoFreq_Variants{$Chrom}{$CovPos}}){
-					
+						# initialize masked if doesn't exist in lofreq
 						if (!exists $LoFreq_Variants{$Chrom}{$CovPos}{$Variant}{"masked"}){
 						
 							$LoFreq_Variants{$Chrom}{$CovPos}{$Variant}{"masked"} = 0;
@@ -656,7 +715,7 @@ sub FilterRawVariants {
 					}
 					
 					foreach my $Variant (keys %{$PosOfInterest{$Chrom}{$CovPos}}){
-						
+						# initialize masked if doesn't exist in position of interesst
 						if (!exists $LoFreq_Variants{$Chrom}{$CovPos}{$Variant} &&
 							!exists $LoFreq_Variants{$Chrom}{$CovPos}{$Variant}{"masked"}){
 							
@@ -668,7 +727,7 @@ sub FilterRawVariants {
 						  !exists $LoFreq_Variants{$Chrom}{$CovPos}) 					&&
 						  exists $PosOfInterest{$Chrom}									&&
 						  exists $PosOfInterest{$Chrom}{$CovPos}){
-						
+					# initialized masked if doesn't exist in lofreq but exist in pos interrested
 					foreach my $Variant (keys %{$PosOfInterest{$Chrom}{$CovPos}}){
 													
 						$LoFreq_Variants{$Chrom}{$CovPos}{$Variant}{"masked"} = 0;
@@ -687,10 +746,10 @@ sub FilterRawVariants {
 		foreach my $Start (sort keys %{$PosOfInterest{$Chrom}}){
 		
 			next if (!exists $CoordinateMappings{"$Chrom\~$Start"});
-						
+			# exist if in lofreq
 			if 	(	exists $LoFreq_Variants{$Chrom} &&
 					exists $LoFreq_Variants{$Chrom}{$Start}){
-					
+				# delete the lofreq variant if the cov quality under 60 
 				if (!exists $Coverage{$Chrom}{$Start}){
 					
 					delete($LoFreq_Variants{$Chrom}{$Start});
@@ -698,7 +757,7 @@ sub FilterRawVariants {
 					foreach my $HomoloCoord (keys %{$CoordinateMappings{"$Chrom\~$Start"}}){
 						
 						(my $HomChrom, my $HomPos) = split(m/~/, $HomoloCoord);
-						
+						# delete the lofreq variant if present in coordinate mapping
 						if ($LoFreq_Variants{$HomChrom}{$HomPos}){
 								
 							delete($LoFreq_Variants{$HomChrom}{$HomPos});
@@ -717,18 +776,19 @@ sub FilterRawVariants {
 		foreach my $Pos (sort keys %{$LoFreq_Variants{$Chrom}}){
 			
 			#print $Pos . "\n";
-			
+			# pass if quality high
 			next if (!exists $Coverage{$Chrom}{$Pos});
 			
 			foreach my $Variant (sort keys %{$LoFreq_Variants{$Chrom}{$Pos}}){
 				
 				#print $Variant . "\n";
-					
+				#
 				(my $ToMapOnChrom, my $ToMapOnStart, my $ToMapOnEnd, my $Change) = split (m/~/, $Variant);
+				# mutation
 				(my $RefNucl, my $AltNucl) 		= split(m/\//, $Change);
-				
+				# if have pos start and pos end
 				if ($CoordinateMappings{"$Chrom\~$ToMapOnStart"} && $CoordinateMappings{"$Chrom\~$ToMapOnEnd"}){	
-			
+					# exist in SD; in lofreq ;qulity superior at 0.15 but doesnt exist in GATK initlilize present and edge
 					if (! exists $MappedSDs{$Variant}															&&
 						  exists $LoFreq_Variants{$Chrom}{$Pos}{$Variant}{"MASKED"} 					&&
 								 $LoFreq_Variants{$Chrom}{$Pos}{$Variant}{"MASKED"} >=0.15				&&
@@ -746,7 +806,7 @@ sub FilterRawVariants {
 						if ($RefNucl eq "-" || $AltNucl eq "-"){
 										
 							for (my $I = $Pos-2; $I <= $Pos+2; $I++){
-				
+								# exist variant near mut check 
 								if (exists $GATK_Variants{$Chrom} 						&&
 									exists $GATK_Variants{$Chrom}{$I}){
 									
@@ -768,13 +828,13 @@ sub FilterRawVariants {
 						## CHECK IF ALL OTHERVARIANTS ARE ABSENT ###
 								
 						my $OtherVariantsRef = ConstructOtherVariant($Variant, \%CoordinateMappings, \%PosToRegionName, \%Strands, \%SDsBED);
-						
+						# flag 
 						if ($Present == 0){
 							
 							foreach my $OtherVariant (keys %$OtherVariantsRef){
 							
 								(my $OtherChrom, my $OtherStart, my $OtherEnd, my $OtherChange) = split(m/\~/, $OtherVariant);
-								
+								# exist gatk variant
 								if (exists $GATK_Variants{$OtherChrom} 											&&
 									exists $GATK_Variants{$OtherChrom}{$OtherStart}								&&
 									exists $GATK_Variants{$OtherChrom}{$OtherStart}{$OtherVariant}				&&
@@ -782,7 +842,7 @@ sub FilterRawVariants {
 									
 									$Present = 1;
 								}
-								
+								# doesn t exist postoregion then flag
 								if (!exists $PosToRegionName{$OtherChrom} ||
 									!exists $PosToRegionName{$OtherChrom}{$OtherStart}){
 									
@@ -933,9 +993,9 @@ sub FilterRawVariants {
 
 
 
-
+# determined the type of mutations
 sub DetermineVariantInVCF_Line {
-				
+	# line of the file; which type of file
 	(my $Line,
 	 my $Caller)
 	= @_;
@@ -1074,6 +1134,7 @@ sub FormatGATKCoordinatesOfVariant {
 	return ($ReferenceAllele, $VariantAllele, $Position);
 }
 
+#
 sub ConstructOtherVariant {
 					
 	(my $Variant, 

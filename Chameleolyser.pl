@@ -164,11 +164,11 @@ sub MaskReferenceGenome {
 	chdir	("$WORKING_DIR/REF/");
 	print "Starting downloading hg38 patch 14 \n";
 		# download data
-	system	("wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/all_assembly_versions/GCF_000001405.40_GRCh38.p14/GRCh38_major_release_seqs_for_alignment_pipelines/GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna.gz");
+	#system	("wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/all_assembly_versions/GCF_000001405.40_GRCh38.p14/GRCh38_major_release_seqs_for_alignment_pipelines/GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna.gz");
 		# decompress data
-	system 	("gunzip GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna.gz");
+	#system 	("gunzip GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna.gz");
 		# Change name of the file
-	system	("mv GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna hg38.chr.fa");
+	#system	("mv GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna hg38.chr.fa");
 		# Index the genome > burrows wheeler compressed index
 	system 	("bwa index hg38.chr.fa");
 		#  Index the region of the genome as an .fai

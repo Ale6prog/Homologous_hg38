@@ -1,0 +1,320 @@
+#Split in new
+chr1	13331162	13331792	24_Other
+#Split in new
+chr1	144676372	144678090	35_Other
+#Split in new
+chr1	144679307	144680673	36_Other
+#Split in new
+chr1	146056800	146057962	42_Other
+#Split in new
+chr1	148329972	148330530	45_Other
+#Split in new
+chr1	149675760	149677189	46_ToMapOn
+#Split in new
+chr10	47174144	47175249	189_ToMapOn
+#Split in new
+chr10	47191941	47193733	AGAP10_Region1_ToMapOn
+#Split in new
+chr10	47193978	47194430	AGAP10_Region2_ToMapOn
+#Split in new
+chr10	47197337	47197773	AGAP10_Region3_ToMapOn
+#Partially deleted in new
+chr10	47742155	47742658	FAM25B_Region2_Other
+#Partially deleted in new
+chr10	47933237	47934458	184_Other
+#Partially deleted in new
+chr10	48006547	48007689	193_ToMapOn
+#Partially deleted in new
+chr10	48024870	48026139	196_ToMapOn
+#Partially deleted in new
+chr10	48032401	48033607	199_ToMapOn
+#Split in new
+chr10	48941504	48942724	203_Other
+#Split in new
+chr10	48942858	48944037	190_Other
+#Split in new
+chr10	51370223	51372161	208_ToMapOn
+#Split in new
+chr10	51373797	51375124	209_ToMapOn
+#Partially deleted in new
+chr14	22080122	22080261	UBE2N_Region2_Other
+#Partially deleted in new
+chr14	106572788	106573858	428_Other
+#Split in new
+chr19	40389161	40390400	648_Other
+#Split in new
+chr19	40391843	40393004	649_Other
+#Split in new
+chr19	54723985	54725060	670_ToMapOn
+#Partially deleted in new
+chr7	65171395	65171566	INTS4_Region1_Other
+#Partially deleted in new
+chr7	74469537	74472378	1056_ToMapOn
+#Partially deleted in new
+chr7	74473782	74475206	1057_ToMapOn
+#Partially deleted in new
+chr7	74771206	74772631	1057_Other
+#Partially deleted in new
+chr7	74774039	74776874	1056_Other
+#Split in new
+chr9	39721934	39723115	1135_Other
+#Split in new
+chr9	41325707	41326304	1136_Other
+#Split in new
+chr9	65585329	65586380	1133_Other
+#Deleted in new
+chrMT	4074	5111	1162_ToMapOn
+#Partially deleted in new
+chrX	230247	231507	1271_ToMapOn
+#Partially deleted in new
+chrX	1314348	1315571	1174_ToMapOn
+#Split in new
+chrX	140084862	140085052	1181_ToMapOn
+#Partially deleted in new
+chrY	180247	181509	1271_Other
+#Partially deleted in new
+chrY	1264342	1265569	1174_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	55513	56307	445_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	65766	68177	446_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	68328	69379	447_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	71643	73977	448_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	74216	75400	449_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	78623	79900	450_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	88286	90207	451_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	93657	94818	452_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	96227	97511	453_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	99121	101740	454_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	101754	102954	455_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	103782	105975	456_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	110588	111852	457_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	112918	114287	458_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	117838	119392	459_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	121200	122466	460_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	122632	123753	461_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	127991	129291	462_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	130044	132051	463_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	132842	134192	464_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	134423	135612	465_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	142385	143909	466_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	146004	148268	467_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	156900	158248	468_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	159716	161065	469_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	174574	175895	470_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	177324	178374	471_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	180393	181676	472_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	189448	190591	473_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	192552	193744	474_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	196776	197927	475_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	199032	200295	476_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	201795	203034	477_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	207656	208917	478_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	210344	213589	479_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	215997	217285	480_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	218593	219706	481_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	222356	223583	482_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	224947	226768	483_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	228381	230032	484_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	261252	262785	485_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	268501	269921	486_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	271190	272529	487_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	275251	276545	488_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	303945	305301	489_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	305647	306865	490_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	323448	324601	491_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	331824	333018	492_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	359290	360501	493_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	373341	374509	494_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	380421	381779	495_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	396939	398193	496_Other
+#Deleted in new
+gi|224514628|ref|NT_167207.1|	406915	408262	497_Other
+#Deleted in new
+gi|224514643|ref|NT_167216.1|	11161	12700	834_Other
+#Deleted in new
+gi|224514643|ref|NT_167216.1|	13687	17295	833_Other
+#Deleted in new
+gi|224514643|ref|NT_167216.1|	20947	22242	832_Other
+#Deleted in new
+gi|224514643|ref|NT_167216.1|	22454	23760	831_Other
+#Deleted in new
+gi|224514643|ref|NT_167216.1|	87146	89654	830_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	9	1099	282_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	21370	23628	281_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	23829	25129	280_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	42196	43607	279_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	46582	49670	278_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	56629	58785	277_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	63961	65330	276_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	93975	96536	275_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	97927	99676	274_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	118475	119862	273_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	159799	161106	272_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	172313	174085	271_Other
+#Deleted in new
+gi|224514644|ref|NT_167217.1|	178499	180445	270_Other
+#Deleted in new
+gi|224514646|ref|NT_167219.1|	176828	178042	150_Other
+#Deleted in new
+gi|224514649|ref|NT_167222.1|	30102	32424	830_Other
+#Deleted in new
+gi|224514658|ref|NT_167208.1|	107505	108646	775_Other
+#Deleted in new
+gi|224514658|ref|NT_167208.1|	138492	139869	774_Other
+#Deleted in new
+gi|224514663|ref|NT_167235.1|	15563	16676	843_Other
+#Deleted in new
+gi|224514666|ref|NT_167236.1|	12167	14951	793_Other
+#Deleted in new
+gi|224514666|ref|NT_167236.1|	16865	18063	794_Other
+#Deleted in new
+gi|224514666|ref|NT_167236.1|	23057	26957	795_Other
+#Deleted in new
+gi|224514666|ref|NT_167236.1|	33434	34751	796_Other
+#Deleted in new
+gi|224514675|ref|NT_167240.1|	12511	14238	779_Other
+#Deleted in new
+gi|224514683|ref|NT_167243.1|	31805	34447	798_Other
+#Deleted in new
+gi|224514683|ref|NT_167243.1|	36665	37958	799_Other
+#Deleted in new
+gi|224514689|ref|NT_167211.1|	94223	95439	150_Other
+#Deleted in new
+gi|88944410|ref|NT_113878.1|	18846	18890	107_Other
+#Deleted in new
+gi|88944410|ref|NT_113878.1|	37104	38181	109_Other
+#Deleted in new
+gi|88944410|ref|NT_113878.1|	44257	45578	111_Other
+#Deleted in new
+gi|88944410|ref|NT_113878.1|	48023	49275	112_Other
+#Deleted in new
+gi|88944410|ref|NT_113878.1|	49438	50819	113_Other
+#Deleted in new
+gi|89028417|ref|NT_113907.1|	15629	16963	1091_Other
+#Deleted in new
+gi|89028417|ref|NT_113907.1|	19560	22509	1090_Other
+#Deleted in new
+gi|89028417|ref|NT_113907.1|	30414	31788	1089_Other
+#Deleted in new
+gi|89028421|ref|NT_113909.1|	12308	13639	1095_Other
+#Deleted in new
+gi|89028421|ref|NT_113909.1|	15150	16547	1094_Other
+#Deleted in new
+gi|89028421|ref|NT_113909.1|	22220	23445	1093_Other
+#Deleted in new
+gi|89028421|ref|NT_113909.1|	26275	27619	1092_Other
+#Deleted in new
+gi|89030144|ref|NT_113911.1|	1976	4671	1119_Other
+#Deleted in new
+gi|89030144|ref|NT_113911.1|	8747	10107	1120_Other
+#Deleted in new
+gi|89030144|ref|NT_113911.1|	13642	15070	1121_Other
+#Deleted in new
+gi|89030144|ref|NT_113911.1|	15072	18549	1122_Other
+#Deleted in new
+gi|89030144|ref|NT_113911.1|	20590	22857	1123_Other
+#Deleted in new
+gi|89030144|ref|NT_113911.1|	26056	28327	1124_Other
+#Deleted in new
+gi|89036899|ref|NT_113923.1|	130425	130517	12_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	7327	10251	674_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	10646	11889	675_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	12253	13842	676_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	23160	24389	679_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	25399	25929	677_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	30796	30950	678_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	34956	35165	680_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	41841	42419	677_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	56618	60534	681_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	61950	63207	682_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	67407	67801	683_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	70495	72626	684_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	73679	74341	685_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	116388	117643	679_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	127997	128440	680_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	132572	133801	679_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	134811	135336	677_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	147790	149927	684_Other
+#Deleted in new
+gi|89056990|ref|NT_113949.1|	150924	151556	685_Other

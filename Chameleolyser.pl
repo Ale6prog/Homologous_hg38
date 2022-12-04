@@ -117,22 +117,22 @@ sub PrepareBED {
 	unless	(-d "$WORKING_DIR/BED/"){system("mkdir $WORKING_DIR/BED/");}
 	chdir	("$WORKING_DIR/BED/");
 		
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/All.formasking.noalt.chr.bed");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/All.forextraction.noalt.chr.bed");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/All.forvarcall.noalt.chr.bed");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/All.homologousexons.noalt.chr.bed");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/AllSDs.noalt.chr.bed");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/AllToMapOnToOther.chr.txt.gz");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/MappedSDs.chr.txt");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/PosToRegionID.chr.txt.gz");
+	system	("wget https://raw.githubusercontent.com/Ale6prog/Homologous_hg38/main/BED/All.formasking.chr.hg38.bed");
+	system	("wget https://raw.githubusercontent.com/Ale6prog/Homologous_hg38/main/BED/all.forextraction.hg38.bed");
+	system	("wget https://raw.githubusercontent.com/Ale6prog/Homologous_hg38/main/BED/all.forvarcall.hg38.bed");
+	system	("wget https://raw.githubusercontent.com/Ale6prog/Homologous_hg38/main/BED/all.homologousexons.hg38.bed");
+	system	("wget https://raw.githubusercontent.com/Ale6prog/Homologous_hg38/main/BED/allsd.hg38.bed");
+	#system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/AllToMapOnToOther.chr.txt.gz");
+	#system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/MappedSDs.chr.txt");
+	#system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/PosToRegionID.chr.txt.gz");
 	
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/HPs.noalt.chr.bed.gz");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/SitesToExclude.noalt.chr.bed");
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/CohortAlleleFreq.chr.txt");
+	#system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/HPs.noalt.chr.bed.gz");
+	system	("wget https://raw.githubusercontent.com/Ale6prog/homologous_hg38/main/BED/sitetoexclude.hg38.bed");
+	system	("wget  https://raw.githubusercontent.com/Ale6prog/Homologous_hg38/main/BED/CohortAlleleFreq_chr_hg38.txt");
 		
-	system("gunzip HPs.noalt.chr.bed.gz");
+	#system("gunzip HPs.noalt.chr.bed.gz");
 
-	system	("wget https://raw.githubusercontent.com/Genome-Bioinformatics-RadboudUMC/ChameleolyserBEDs/main/RegionID_ToStrand.txt");
+	system	("wget https://raw.githubusercontent.com/Ale6prog/Homologous_hg38/main/BED/RegionID_ToStrand.txt");
 }
 
 sub MaskReferenceGenome {
@@ -164,17 +164,17 @@ sub MaskReferenceGenome {
 	chdir	("$WORKING_DIR/REF/");
 	print "Starting downloading hg38 patch 14 \n";
 		# download data
-	#system	("wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/all_assembly_versions/GCF_000001405.40_GRCh38.p14/GRCh38_major_release_seqs_for_alignment_pipelines/GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna.gz");
+	system	("wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/vertebrate_mammalian/Homo_sapiens/all_assembly_versions/GCF_000001405.40_GRCh38.p14/GRCh38_major_release_seqs_for_alignment_pipelines/GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna.gz");
 		# decompress data
-	#system 	("gunzip GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna.gz");
+	system 	("gunzip GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna.gz");
 		# Change name of the file
-	#system	("mv GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna hg38.chr.fa");
+	system	("mv GCA_000001405.15_GRCh38_full_plus_hs38d1_analysis_set.fna hg38.chr.fa");
 		# Index the genome > burrows wheeler compressed index
 	system 	("bwa index hg38.chr.fa");
 		#  Index the region of the genome as an .fai
 		# contains lenght ,position in the file; nmes length of the fasta files
 	system 	("samtools faidx hg38.chr.fa");
-	die;
+
 	print "Downloading and indexing of hg38 patch 14 finish\n";
 
 		# Recuperate the position and the lenght in the file
@@ -281,7 +281,7 @@ sub GenerateMaskedAlignmentAndVcf {
 
 	# Create the folder
 	unless(-d "$WORKING_DIR/RAW/"){system("mkdir $WORKING_DIR/RAW/");}
-	unless(-d "$WORKING_DIR/RAW/"){system("mkdir $WORKING_DIR/RAW/$SAMPLE_NAME");}
+	unless(-d "$WORKING_DIR/RAW/$SAMPLE_NAME"){system("mkdir $WORKING_DIR/RAW/$SAMPLE_NAME");}
 
 	### First part create vcf files
 
@@ -290,34 +290,32 @@ sub GenerateMaskedAlignmentAndVcf {
 	# classified with the coordinated
 	system	("java -Xmx8G -jar $PicardJarPath SortSam I=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.bam SO=coordinate");
 	# tagg the duplicated from the files
-	system	("java -Xmx8G -jar $PicardJarPath MarkDuplicates I=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.bam O=$WORKING_DIR/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam M=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.met REMOVE_DUPLICATES=true");
+	system	("java -Xmx8G -jar $PicardJarPath MarkDuplicates I=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam M=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.met REMOVE_DUPLICATES=true");
 	# remove the sorted bam file
 	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.bam");
 	# bam to bai
-	system	("samtools index $WORKING_DIR/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam");
+	system	("samtools index $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam");
 	# eliminate the reads to have uniq reads
 	system	("samtools view -bh -q 1 $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam > $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.uniq.bam");
-	system("echo second");
-	# compare the exons homologous with the reads and counts -> put in a zip
-	system	("bedtools coverage -a $CovExonsFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam -counts | bgzip -c >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
-	# compare the exons homologous  with the uniq reads and counts -> put in a zip
-	system	("bedtools coverage -a $CovExonsFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.uniq.bam -counts | bgzip -c >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.uniq.cov.gz");
+	## Not needed for the moment
+			# compare the exons homologous with the reads and counts -> put in a zip
+		#system	("bedtools coverage -a $CovExonsFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam -counts | bgzip -c >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
+			# compare the exons homologous  with the uniq reads and counts -> put in a zip
+		#system	("bedtools coverage -a $CovExonsFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.uniq.bam -counts | bgzip -c >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.uniq.cov.gz");
+	
 	# Infer the SNV and indel from reads (here)
-	system("echo third");
-	system	("lofreq call --call-indels --force-overwrite --no-default-filter --use-orphan -a 1 -b 20 -B -N -f $RefGenome -l $VarCallBedFP -o  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf  $WORKING_DIR/RAW/$SAMPLE_NAME.ori.sorted.remdup.bam");
+	system	("lofreq call --call-indels --force-overwrite --no-default-filter --use-orphan -a 1 -b 20 -B -N -f $RefGenome -l $VarCallBedFP -o  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam");
 
-	system("echo third");
 	# zip the inference 
 	system	("bgzip -c  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf.gz");
 	# Index and retirve overlapping specified regions
 	system	("tabix -p vcf  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf.gz");
 	# remove the inference file
 	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.lofreq.vcf");
-	# deteckt the oitential variant sites per samples
+	# deteckt the potential variant sites per samples
 	system("java -jar $PicardJarPath AddOrReplaceReadGroups I=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.asorted.remdup.bam RGLB=lib1 RGPL=illumina RGPU=unit1 RGSM=hello");
 	system("samtools index $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.asorted.remdup.bam");
 	system	("gatk --java-options \-Xmx4g\ HaplotypeCaller -R $RefGenome -I  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.asorted.remdup.bam -O  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.gatk.vcf -L $VarCallBedFP --annotation MappingQualityRankSumTest --annotation MappingQualityZero --annotation QualByDepth --annotation ReadPosRankSumTest --annotation RMSMappingQuality --annotation BaseQualityRankSumTest --annotation FisherStrand --annotation MappingQuality --annotation DepthPerAlleleBySample");
-	system("echo yes");
 
 	### Clean the files 
 	# zip the results
@@ -329,12 +327,12 @@ sub GenerateMaskedAlignmentAndVcf {
 	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.gatk.vcf.idx");
 
 	###Second part
-	system("echo fourth");
 	# compare the VarCallBedFP with the uniq reads and counts -> put in a zip
-	system	("bedtools coverage -a $VarCallBedFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam -d -sorted  -g $GenomeFileFilePath >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov");
-	system	("bgzip -c  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
-	system	("tabix -p bed  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
-	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov");
+	## Not needed for the moment
+	#system	("bedtools coverage -a $VarCallBedFP -b  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam -d -sorted  -g $GenomeFileFilePath >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov");
+	#system	("bgzip -c  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
+	#system	("tabix -p bed  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov.gz");
+	#system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.cov");
 	
 	# goups read together by names and the way of reads
 	system	("samtools collate -uO  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.ori.sorted.remdup.bam  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME | samtools fastq -1  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.1.fastq -2  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.2.fastq -0  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.0.fastq -t -");
@@ -346,9 +344,9 @@ sub GenerateMaskedAlignmentAndVcf {
 	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.2.fastq.gz");
 	system	("rm -f  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.0.fastq");
 
-	system("echo fifth");
 	# Local aligment 	
 	system	("bwa mem -t $NR_OF_THREADS -M $MaskedRefGenome  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.rep.1.fastq.gz  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.rep.2.fastq.gz >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sam");
+	die();
 	# S for compatibilty not needed b -> bam format
 	system	("samtools view -Sb  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sam >  $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.bam");
 	# Class with coordinate
@@ -372,11 +370,12 @@ sub GenerateMaskedAlignmentAndVcf {
 	system	("samtools index $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam");
 	# Assigns all the reads in a file to a single new read-group
 	system	("java -Xmx8G -jar $PicardJarPath AddOrReplaceReadGroups I=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam O=$WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam RGID=1 RGLB=lib1 RGPL=illumina RGPU=unit1 RGSM=$SAMPLE_NAME");			
-	system("echo sixth");
 	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam");
 	system	("rm -f $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.bam.bai");
 	# index 
 	system	("samtools index $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam");
+
+
 	### third part
 	# Infer the SNV and indel from reads (here)
 	system	("lofreq call --call-indels --force-overwrite --no-default-filter --use-orphan -a 1 -b 20 -B -N -f $MaskedRefGenome -l $VarCallBedFP -o $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.lofreq.vcf $WORKING_DIR/RAW/$SAMPLE_NAME/$SAMPLE_NAME.masked.sorted.remdup.bqsr.rg.bam");

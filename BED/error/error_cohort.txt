@@ -1,0 +1,480 @@
+#Deleted in new
+chr10	17936405	17936405	C/T
+#Deleted in new
+chr10	47174612	47174614	CCA/-
+#Deleted in new
+chr10	47942072	47942072	A/G
+#Deleted in new
+chr10	48006920	48006920	A/G
+#Deleted in new
+chr10	48007209	48007209	C/T
+#Deleted in new
+chr10	48007211	48007211	T/G
+#Deleted in new
+chr10	48007218	48007218	A/G
+#Deleted in new
+chr10	48007220	48007220	A/C
+#Deleted in new
+chr10	48007220	48007220	A/T
+#Deleted in new
+chr10	48007221	48007221	G/A
+#Deleted in new
+chr10	48007221	48007221	G/C
+#Deleted in new
+chr10	48033118	48033118	A/G
+#Deleted in new
+chr10	48033119	48033119	G/A
+#Deleted in new
+chr10	48033141	48033141	G/A
+#Deleted in new
+chr10	48196187	48196187	C/T
+#Deleted in new
+chr10	48196187	48196188	-/A
+#Deleted in new
+chr10	51374390	51374390	T/C
+#Deleted in new
+chr1	120930078	120930078	G/A
+#Deleted in new
+chr1	120930078	120930078	G/T
+#Deleted in new
+chr1	120930088	120930088	C/T
+#Deleted in new
+chr1	120930256	120930256	C/T
+#Deleted in new
+chr1	13329186	13329186	C/A
+#Deleted in new
+chr1	13329187	13329187	C/A
+#Deleted in new
+chr1	13387140	13387140	C/A
+#Deleted in new
+chr1	145816542	145816543	-/GT
+#Deleted in new
+chr1	145816542	145816543	-/T
+#Deleted in new
+chr1	145816542	145816543	-/TC
+#Deleted in new
+chr1	145816542	145816543	-/TT
+#Deleted in new
+chr1	145816542	145816543	-/TTT
+#Deleted in new
+chr1	145816542	145816543	-/TTTT
+#Partially deleted in new
+chr1	1581557	1581560	CCGT/-
+#Deleted in new
+chr1	1581585	1581586	AT/-
+#Deleted in new
+chr1	1583144	1583146	TTC/-
+#Deleted in new
+chr19	43865316	43865316	C/G
+#Deleted in new
+chr19	43865316	43865316	C/T
+#Deleted in new
+chr19	43865317	43865317	G/A
+#Deleted in new
+chr19	43865317	43865317	G/T
+#Deleted in new
+chr19	43865319	43865319	C/T
+#Deleted in new
+chr19	43865320	43865320	C/A
+#Deleted in new
+chr19	43865321	43865321	T/A
+#Deleted in new
+chr19	54724812	54724812	C/T
+#Deleted in new
+chr19	54724813	54724813	G/A
+#Deleted in new
+chr19	54724813	54724813	G/C
+#Deleted in new
+chr19	54724819	54724819	C/T
+#Deleted in new
+chr19	54724820	54724820	C/T
+#Deleted in new
+chr19	54724820	54724821	CG/-
+#Deleted in new
+chr19	54724958	54724958	C/T
+#Deleted in new
+chr19	54725039	54725039	C/T
+#Deleted in new
+chr19	54725040	54725040	A/G
+#Deleted in new
+chr19	54725042	54725042	T/A
+#Deleted in new
+chr19	54725042	54725042	T/G
+#Deleted in new
+chr19	54725044	54725044	G/C
+#Deleted in new
+chr19	54725992	54725992	G/A
+#Deleted in new
+chr19	54725993	54725993	C/T
+#Deleted in new
+chr19	54725995	54725995	G/A
+#Deleted in new
+chr19	54725995	54725995	G/T
+#Deleted in new
+chr19	54725999	54725999	G/A
+#Deleted in new
+chr19	54727260	54727260	C/T
+#Deleted in new
+chr19	54727262	54727262	G/A
+#Partially deleted in new
+chr19	55240949	55240951	CTC/-
+#Deleted in new
+chr19	55241079	55241079	C/G
+#Deleted in new
+chr19	55241079	55241079	C/T
+#Deleted in new
+chr19	55241106	55241106	C/T
+#Deleted in new
+chr21	46011745	46011745	C/G
+#Deleted in new
+chr21	46011745	46011745	C/T
+#Deleted in new
+chr21	46011746	46011746	G/A
+#Deleted in new
+chr2	90537744	90537746	CCA/-
+#Deleted in new
+chr7	74195205	74195205	C/-
+#Deleted in new
+chr7	74212036	74212036	C/G
+#Deleted in new
+chr7	74212040	74212040	T/G
+#Deleted in new
+chr7	74239417	74239418	-/AAAA
+#Deleted in new
+chr7	74239418	74239418	A/-
+#Deleted in new
+chr7	74251321	74251321	G/C
+#Deleted in new
+chr7	74867733	74867734	-/TGC
+#Deleted in new
+chr7	74867733	74867734	-/TGCTGCTGC
+#Deleted in new
+chr7	74867733	74867734	-/TGCTGCTGCTGCTGC
+#Deleted in new
+chr7	74867734	74867739	TGCTGC/-
+#Deleted in new
+chr7	74867734	74867748	TGCTGCTGCTGCTGC/-
+#Deleted in new
+chrMT	4080	4080	T/C
+#Deleted in new
+chrMT	4086	4086	C/T
+#Deleted in new
+chrMT	4092	4092	G/A
+#Deleted in new
+chrMT	4093	4093	A/G
+#Deleted in new
+chrMT	4095	4095	C/T
+#Deleted in new
+chrMT	4096	4096	C/T
+#Deleted in new
+chrMT	4104	4104	A/G
+#Deleted in new
+chrMT	4113	4113	G/A
+#Deleted in new
+chrMT	4122	4122	A/G
+#Deleted in new
+chrMT	4123	4123	A/G
+#Deleted in new
+chrMT	4129	4129	A/G
+#Deleted in new
+chrMT	4140	4140	C/T
+#Deleted in new
+chrMT	4161	4161	C/T
+#Deleted in new
+chrMT	4164	4164	A/G
+#Deleted in new
+chrMT	4167	4167	C/T
+#Deleted in new
+chrMT	4170	4170	C/T
+#Deleted in new
+chrMT	4172	4172	T/A
+#Deleted in new
+chrMT	4173	4173	A/G
+#Deleted in new
+chrMT	4188	4188	A/G
+#Deleted in new
+chrMT	4203	4203	A/G
+#Deleted in new
+chrMT	4216	4216	T/C
+#Deleted in new
+chrMT	4218	4218	T/C
+#Deleted in new
+chrMT	4221	4221	C/T
+#Deleted in new
+chrMT	4225	4225	A/G
+#Deleted in new
+chrMT	4227	4227	A/G
+#Deleted in new
+chrMT	4232	4232	T/C
+#Deleted in new
+chrMT	4248	4248	T/C
+#Deleted in new
+chrMT	4295	4295	A/G
+#Deleted in new
+chrMT	4300	4300	A/G
+#Deleted in new
+chrMT	4336	4336	T/C
+#Deleted in new
+chrMT	4350	4350	C/T
+#Deleted in new
+chrMT	4363	4363	T/C
+#Deleted in new
+chrMT	4386	4386	T/C
+#Deleted in new
+chrMT	4395	4395	A/G
+#Deleted in new
+chrMT	4401	4401	A/G
+#Deleted in new
+chrMT	4418	4418	T/C
+#Deleted in new
+chrMT	4435	4435	A/G
+#Deleted in new
+chrMT	4452	4452	T/C
+#Deleted in new
+chrMT	4454	4454	T/C
+#Deleted in new
+chrMT	4491	4491	G/A
+#Deleted in new
+chrMT	4502	4502	T/C
+#Deleted in new
+chrMT	4505	4505	C/T
+#Deleted in new
+chrMT	4512	4512	G/A
+#Deleted in new
+chrMT	4529	4529	A/T
+#Deleted in new
+chrMT	4541	4541	G/A
+#Deleted in new
+chrMT	4553	4553	T/C
+#Deleted in new
+chrMT	4561	4561	T/C
+#Deleted in new
+chrMT	4562	4562	A/G
+#Deleted in new
+chrMT	4580	4580	G/A
+#Deleted in new
+chrMT	4586	4586	T/C
+#Deleted in new
+chrMT	4612	4612	T/C
+#Deleted in new
+chrMT	4615	4615	A/G
+#Deleted in new
+chrMT	4639	4639	T/C
+#Deleted in new
+chrMT	4640	4640	C/A
+#Deleted in new
+chrMT	4643	4643	G/A
+#Deleted in new
+chrMT	4646	4646	T/C
+#Deleted in new
+chrMT	4655	4655	G/A
+#Deleted in new
+chrMT	4659	4659	G/A
+#Deleted in new
+chrMT	4676	4676	C/T
+#Deleted in new
+chrMT	4688	4688	T/C
+#Deleted in new
+chrMT	4695	4695	T/C
+#Deleted in new
+chrMT	4703	4703	T/C
+#Deleted in new
+chrMT	4706	4706	A/G
+#Deleted in new
+chrMT	4712	4712	C/A
+#Deleted in new
+chrMT	4712	4712	C/T
+#Deleted in new
+chrMT	4715	4715	A/G
+#Deleted in new
+chrMT	4718	4718	A/G
+#Deleted in new
+chrMT	4721	4721	A/G
+#Deleted in new
+chrMT	4722	4722	A/G
+#Deleted in new
+chrMT	4727	4727	A/G
+#Deleted in new
+chrMT	4732	4732	A/G
+#Deleted in new
+chrMT	4733	4733	T/C
+#Deleted in new
+chrMT	4736	4736	T/C
+#Deleted in new
+chrMT	4739	4739	C/T
+#Deleted in new
+chrMT	4742	4742	T/C
+#Deleted in new
+chrMT	4745	4745	A/G
+#Deleted in new
+chrMT	4767	4767	A/G
+#Deleted in new
+chrMT	4769	4769	A/G
+#Deleted in new
+chrMT	4790	4790	A/G
+#Deleted in new
+chrMT	4793	4793	A/G
+#Deleted in new
+chrMT	4796	4796	C/T
+#Deleted in new
+chrMT	4802	4802	T/C
+#Deleted in new
+chrMT	4811	4811	A/G
+#Deleted in new
+chrMT	4812	4812	G/C
+#Deleted in new
+chrMT	4820	4820	G/A
+#Deleted in new
+chrMT	4823	4823	T/C
+#Deleted in new
+chrMT	4824	4824	A/G
+#Deleted in new
+chrMT	4833	4833	A/G
+#Deleted in new
+chrMT	4841	4841	G/A
+#Deleted in new
+chrMT	4843	4843	C/T
+#Deleted in new
+chrMT	4847	4847	C/T
+#Deleted in new
+chrMT	4850	4850	C/T
+#Deleted in new
+chrMT	4853	4853	G/A
+#Deleted in new
+chrMT	4856	4856	T/C
+#Deleted in new
+chrMT	4859	4859	T/C
+#Deleted in new
+chrMT	4883	4883	C/T
+#Deleted in new
+chrMT	4886	4886	C/T
+#Deleted in new
+chrMT	4890	4890	A/G
+#Deleted in new
+chrMT	4895	4895	A/G
+#Deleted in new
+chrMT	4901	4901	A/G
+#Deleted in new
+chrMT	4904	4904	C/T
+#Deleted in new
+chrMT	4907	4907	T/C
+#Deleted in new
+chrMT	4908	4908	C/T
+#Deleted in new
+chrMT	4916	4916	A/G
+#Deleted in new
+chrMT	4917	4917	A/G
+#Deleted in new
+chrMT	4924	4924	G/A
+#Deleted in new
+chrMT	4928	4928	T/C
+#Deleted in new
+chrMT	4931	4931	C/T
+#Deleted in new
+chrMT	4936	4936	C/T
+#Deleted in new
+chrMT	4944	4944	A/G
+#Deleted in new
+chrMT	4949	4949	A/G
+#Deleted in new
+chrMT	4959	4959	G/A
+#Deleted in new
+chrMT	4960	4960	C/T
+#Deleted in new
+chrMT	4965	4965	A/G
+#Deleted in new
+chrMT	4967	4967	T/C
+#Deleted in new
+chrMT	4973	4973	T/C
+#Deleted in new
+chrMT	4976	4976	A/G
+#Deleted in new
+chrMT	4977	4977	T/C
+#Deleted in new
+chrMT	4979	4979	A/G
+#Deleted in new
+chrMT	4991	4991	G/A
+#Deleted in new
+chrMT	5000	5000	A/G
+#Deleted in new
+chrMT	5004	5004	T/C
+#Deleted in new
+chrMT	5009	5009	A/G
+#Deleted in new
+chrMT	5024	5024	C/T
+#Deleted in new
+chrMT	5029	5029	T/C
+#Deleted in new
+chrMT	5033	5033	A/G
+#Deleted in new
+chrMT	5036	5036	A/G
+#Deleted in new
+chrMT	5039	5039	A/G
+#Deleted in new
+chrMT	5046	5046	G/A
+#Deleted in new
+chrMT	5054	5054	G/A
+#Deleted in new
+chrMT	5063	5063	T/C
+#Deleted in new
+chrMT	5075	5075	T/C
+#Deleted in new
+chrMT	5078	5078	T/C
+#Deleted in new
+chrMT	5090	5090	T/C
+#Deleted in new
+chrMT	5093	5093	T/C
+#Deleted in new
+chrMT	5096	5096	T/C
+#Deleted in new
+chrMT	5104	5104	C/T
+#Deleted in new
+chrMT	5108	5108	T/C
+#Deleted in new
+chrX	1314931	1314931	C/T
+#Deleted in new
+chrX	1314947	1314947	C/G
+#Deleted in new
+chrX	1315001	1315001	C/A
+#Deleted in new
+chrX	1315035	1315035	G/A
+#Partially deleted in new
+chrX	1317590	1317595	ACATAC/-
+#Deleted in new
+chrX	1317593	1317593	T/C
+#Partially deleted in new
+chrX	1317594	1317601	ACACATAC/-
+#Partially deleted in new
+chrX	1317594	1317603	ACACATACAC/-
+#Partially deleted in new
+chrX	1317594	1317605	ACACATACACAC/-
+#Partially deleted in new
+chrX	1317594	1317607	ACACATACACACAC/-
+#Partially deleted in new
+chrX	1317594	1317609	ACACATACACACACAC/-
+#Partially deleted in new
+chrX	1317594	1317611	ACACATACACACACACAC/-
+#Partially deleted in new
+chrX	1317596	1317599	ACAT/-
+#Deleted in new
+chrX	148681151	148681151	C/G
+#Deleted in new
+chrX	148681151	148681152	-/A
+#Deleted in new
+chrX	148681152	148681152	C/A
+#Deleted in new
+chrX	148681153	148681153	C/A
+#Deleted in new
+chrX	148681154	148681154	C/A
+#Deleted in new
+chrX	148681155	148681155	C/T
+#Deleted in new
+chrX	148681160	148681161	CA/-
+#Deleted in new
+chrX	148681161	148681161	A/-
+#Deleted in new
+chrX	148681161	148681161	A/C
+#Deleted in new
+chrX	148681161	148681163	ACT/-
+#Deleted in new
+chrX	48243983	48243984	-/T

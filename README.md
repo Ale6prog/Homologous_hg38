@@ -37,7 +37,7 @@ Contains the ID for each positions and the diretion of the gene.
 #### use_Sitetoexclude_hg38.bed
 In regions where you locally have a lot of SDs, there will, on average, be more false positive variants. For that reason we iterated over the SDs and when 5 SDs are in a range of 10 nucleotides we excluded this subregion.
 
-#### Alltomaponother_hg38.bed
+#### use
 Postion of interrest
 
 #### use_HP_hg38.bed.gz

@@ -16,4 +16,5 @@ dependencies:
   - pip
   - python
   - samtools
+  - BBMAP
 prefix: /ifs/home/wouter/anaconda3/envs/Chameleolyser

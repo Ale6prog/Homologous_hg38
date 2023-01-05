@@ -62,7 +62,7 @@ conda activate Chameleolyser
 ### Optional Prepare BED
 
 The prepareBED function will download all necessary BED file but if you have already clone the git. Move the BED file in your working directories.
-The working directory is the directory in which all intermediate and result files will be written. Choose an existing directory for this. The prepareBED function only need to be run once (also in case multiple samples are analysed in the same working directory).
+The working directory is the directory in which all intermediate and result files will be written. Choose an existing directory for this. The prepareBED function only need to be run once (also in case multiple samples are analysed in the same working directory). Also make sure that all file are not zipped. The program cannot read zipped file and will output empty filtered files.
 ```
 perl Chameleolyser.pl --PrepareBED --WORKING_DIR=<WORKING_DIRECTORY>
 ```

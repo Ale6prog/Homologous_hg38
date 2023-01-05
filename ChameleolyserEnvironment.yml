@@ -5,6 +5,7 @@ channels:
   - defaults
 dependencies:
   - bedtools
+  - bedops
   - bwa
   - bzip2
   - gatk4

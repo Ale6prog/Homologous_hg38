@@ -185,7 +185,7 @@ sub MaskReferenceGenome {
 	system	("java -Xmx8G -jar $PicardJarPath CreateSequenceDictionary REFERENCE=hg38.chr.fa OUTPUT=hg38.chr.dict");
 		# masks sequences in genome based on intervals defined in a feature file (bed)
 	print "Starting the masking of hg38 patch 14\n";
-	system 	("bedtools maskfasta -fi hg38.chr.fa -bed ../BED/use_masking_hg38.bed.txt -fo hg38.masked.chr.fa");
+	system 	("bedtools maskfasta -fi hg38.chr.fa -bed ../BED/use_masking_hg38.bed -fo hg38.masked.chr.fa");
 		# Index the masked genome
 	system 	("bwa index hg38.masked.chr.fa");
 		# Index the region of the masked genome as a fai file

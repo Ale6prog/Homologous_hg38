@@ -41,6 +41,7 @@ my 	$WORKING_DIR									= "";
 my 	$SAMPLE_NAME									= "";
 my 	$ALIGNMENT_FP									= "";
 my	$NR_OF_THREADS									= 1;
+my	$COVERAGE									= 60;
 
 ######################################################
 ### 				PROGRAM OPTIONS		   	   	   ###
@@ -88,7 +89,7 @@ GenerateMaskedAlignmentAndVcf				($WORKING_DIR,
 											 $NR_OF_THREADS) 					if $GenerateMaskedAlignmentAndVcf;
 											 
 FilterRawVariants							($WORKING_DIR,
-											 $SAMPLE_NAME)						if $FilterRawVariants;
+											 $SAMPLE_NAME, $COVERAGE)						if $FilterRawVariants;
 
 ##################################################################################################
 ##################################################################################################
@@ -367,7 +368,8 @@ sub GenerateMaskedAlignmentAndVcf {
 sub FilterRawVariants {
 	
 	(my $WORKING_DIR,
-	 my $SAMPLE_NAME)
+	 my $SAMPLE_NAME,
+	 my $COVERAGE)
 	= @_;
 	
 	my $SDsBedFP						= "";
@@ -630,7 +632,7 @@ sub FilterRawVariants {
 			# if not in interresting regions
 			next if (!exists $CoordinateMappings{"$Chrom\~$CovPos"});
 			# quality enough
-			if ($Cov >= 60){
+			if ($Cov >= $COVERAGE){
 
 				$Coverage{$Chrom}{$CovPos} = $Cov; 
 							

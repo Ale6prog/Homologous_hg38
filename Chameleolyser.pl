@@ -384,6 +384,7 @@ sub FilterRawVariants {
 	my $VariantsOutFP					= "$WORKING_DIR/RAW/$SAMPLE_NAME/result/$SAMPLE_NAME.RawSNVs.txt";
 	my $VariantsFilter1OutFP			= "$WORKING_DIR/RAW/$SAMPLE_NAME/result/$SAMPLE_NAME.Filter1SNVs.txt";
 	my $VariantsFilter2OutFP			= "$WORKING_DIR/RAW/$SAMPLE_NAME/result/$SAMPLE_NAME.Filter2SNVs.txt";
+	my $VariantsFilter2BedFP			= "$WORKING_DIR/RAW/$SAMPLE_NAME/result/$SAMPLE_NAME.Filter2SNVs.bed";
 	my $VariantsFilter1BedFP			= "$WORKING_DIR/RAW/$SAMPLE_NAME/result/$SAMPLE_NAME.Filter1SNVs.bed";
 	my $SortedVariantsFilter1BedFP		= "$WORKING_DIR/RAW/$SAMPLE_NAME/result/$SAMPLE_NAME.Filter1SNVs.sorted.bed";
 	my $VariantsFilter1HpAnnoBedFP		= "$WORKING_DIR/RAW/$SAMPLE_NAME/result/$SAMPLE_NAME.Filter1SNVs.HpAnno.bed";
@@ -894,6 +895,7 @@ sub FilterRawVariants {
 	
 	# Write out F2 variants #
 	
+	open C, ">$VariantsFilter2BedFP" or die ("can't open $VariantsFilter2BedFP\n");
 	open F2, ">$VariantsFilter2OutFP" or die ("can't open $VariantsFilter2OutFP\n");
 	print F2 "Chromosome\tStart\tVAP\tVariantCall\tVAF_Masked\tMaskedCov\tPopFreq\n";
 	
@@ -910,6 +912,7 @@ sub FilterRawVariants {
 				}
 				else {
 					print F2 $F1Variants{$Variant} . "\t" . "0" . "\n";
+					print C $Chrom . "\t" . $Start . "\t" . $Start . "\n"; 
 				}
 				
 				

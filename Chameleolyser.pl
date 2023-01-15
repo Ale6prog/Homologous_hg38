@@ -133,7 +133,7 @@ sub PrepareBED {
 		
 	system("gunzip use_HP_hg38.bed.gz");
 	system("gunzip PosToRegionID_hg38.txt.gz");
-
+	system("gunzip use_map_hg38.bed.gz");
 	system	("wget https://raw.githubusercontent.com/Ale6prog/Homologous_hg38/main/BED/RegionID_ToStrand.txt");
 }
 

@@ -53,7 +53,7 @@ Contains the frequencies of variations in a populations.
 It is highly recommended to install all dependencies by cloning the Chameleolyser repository onto your machine. 
 ```
 git clone https://github.com/Ale6prog/Homologous_hg38
-cd Chameleolyser/
+cd Homologous_hg38/
 conda env create -f ChameleolyserEnvironment.yml
 conda activate Chameleolyser
 ```

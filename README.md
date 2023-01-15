@@ -6,7 +6,7 @@
 
 ## 🤔 Context
 
-Chameleolyser is a bioinformatics tool to identify genetic variants in homologous regions using whole-exome sequencing (WES) data. You can find the originl git on https://github.com/Genome-Bioinformatics-RadboudUMC/Chameleolyser with work on the genome hg19.
+Chameleolyser is a bioinformatics tool to identify genetic variants in homologous regions using whole-exome sequencing (WES) data. You can find the original git on https://github.com/Genome-Bioinformatics-RadboudUMC/Chameleolyser that work on the genome hg19.
 These variants remain hidden in a regular WES analysis. This implementation of our software is hg38-based.
 
 ## BED

@@ -13,7 +13,7 @@ dependencies:
   - perl
   - perl-carp
   - perl-pathtools
-  - picard =  2.27.4
+  - picard=2.27.4
   - pip
   - python
   - samtools

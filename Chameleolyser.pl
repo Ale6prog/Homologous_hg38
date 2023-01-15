@@ -410,9 +410,9 @@ sub FilterRawVariants {
 	$SDsBedFP						= "$WORKING_DIR/BED/use_all_sd.bed";
 	$AllToMapOnToOtherFP			= "$WORKING_DIR/BED/use_map_hg38.bed";	
 	$MappedSDsFP					= "$WORKING_DIR/BED/use_mappedsd.txt";
-	$PositionToRegionFP				= "$WORKING_DIR/BED/PosToRegionID_hg38.txt.gz";
+	$PositionToRegionFP				= "$WORKING_DIR/BED/PosToRegionID_hg38.txt";
 		
-	$HPsBedFP						= "$WORKING_DIR/BED/use_HP_hg38.bed.gz";
+	$HPsBedFP						= "$WORKING_DIR/BED/use_HP_hg38.bed";
 	$TroubleSitesFP					= "$WORKING_DIR/BED/use_Sitetoexclude_hg38.bed";
 	$CohortAF_FP					= "$WORKING_DIR/BED/CohortAlleleFreq_chr_hg38.txt";
 
